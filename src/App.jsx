@@ -1,7 +1,10 @@
+import Login from "./Pages/Login";
+import Signup from "./Pages/Signup";
+
 function App() {
   return (
     <>
-      <div className="bg-red-500 text-center">Test</div>
+      <Signup/>
     </>
   );
 }
