@@ -16,7 +16,7 @@ const Login = () => {
                     strings={['Login to your account']}
                     typeSpeed={50}
                     backSpeed={60}
-                    loop 
+                    loop
                 />
           <form action="" className='mt-4 flex flex-col gap-4'>
             
