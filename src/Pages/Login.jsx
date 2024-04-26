@@ -3,13 +3,21 @@ import bg from '../assets/Frame2.png';
 import pic from '../assets/girl.png'
 import mail from '../assets/mailicon.png'
 import pass from '../assets/password.png'
+import { ReactTyped } from "react-typed";
 
 const Login = () => {
   return (
     <div className=' h-screen relative' style={{ backgroundImage: `url(${bg})`, backgroundSize: 'cover' }}>
       <div className='absolute h-[34rem] w-[59rem]  right-20 top-[10rem]  border-8 border-blue-900 shadow-lg shadow-blue-500/50 rounded-3xl grid grid-cols-2 '>
         <div className='bg-white h-full rounded-xl flex flex-col justify-center items-center'>
-          <h3 className='font-extrabold  text-xl text-slate-600'>Login to your account</h3>
+          {/* <h3 className='font-extrabold  text-xl text-slate-600'>Login to your account</h3> */}
+          <ReactTyped
+          className='text-xl uppercase text-slate-600 text-center font-extrabold'
+                    strings={['Login to your account']}
+                    typeSpeed={50}
+                    backSpeed={60}
+                    loop
+                />
           <form action="" className='mt-4 flex flex-col gap-4'>
             
             <div className='flex flex-col'>
