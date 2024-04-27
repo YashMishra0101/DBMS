@@ -18,7 +18,7 @@ const Login = () => {
                     backSpeed={60}
                     loop
                 />
-          <form action="" className='mt-4 flex flex-col gap-4'>
+          <form action="/studentData" className='mt-4 flex flex-col gap-4'>
             
             <div className='flex flex-col'>
               <label htmlFor="email" className='text-slate-600 font-extrabold text-base'>Email address</label>
