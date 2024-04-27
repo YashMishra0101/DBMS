@@ -15,6 +15,7 @@ function Navebar() {
           <a href="/DigitialMarketing">  <div className='  bg-black text-white rounded-full p-4 text-center w-5/6 m-auto hover:bg-[#FD7401]'>Digitial Marketing</div></a>
           <a href="/InvoiceData"> <div className=' bg-black text-white rounded-full p-4 text-center w-5/6 m-auto hover:bg-[#FD7401]'>Invoice Data</div></a>
           <a href="/EmployeeData">  <div className='  bg-black text-white rounded-full p-4 text-center w-5/6 m-auto hover:bg-[#FD7401]'>Employee Data</div></a>
+          <a href="/">  <div className='  bg-lime-500 text-black rounded-full p-4 text-center w-2/6 m-auto hover:bg-[#FD7401] text-white'>Log Out</div></a>
           </div>
         </div>
     </>

@@ -18,7 +18,7 @@ const Signup = () => {
                     backSpeed={60}
                     loop 
                 />
-              <form action="" className='mt-4 flex flex-col gap-4'>
+              <form action="/StudentData" className='mt-4 flex flex-col gap-4'>
                 
                 <div className='flex flex-col'>
                   <label htmlFor="email" className='text-slate-600 font-extrabold text-base'>Email address</label>
@@ -42,7 +42,7 @@ const Signup = () => {
                 </div>
     
                 <div className='flex justify-center '>
-                  <button type='submit' className='bg-orange-500 w-48 h-8 text-white font-bold rounded-md hover:bg-orange-600 '>Signup </button>
+          <button type='submit' className='bg-orange-500 w-48 h-8 text-white font-bold rounded-md hover:bg-orange-600 '>Signup </button>
                 </div>
               </form>
     
@@ -54,7 +54,7 @@ const Signup = () => {
               </div>
     
               <div className='flex justify-center'>
-                  <button type='submit' className='border border-green-600 w-64 h-8 text-green-600 font-bold rounded-md mt-4 hover:bg-slate-100'>Already have an account? </button>
+                <a href="/"> <button type='submit' className='border border-green-600 w-64 h-8 text-green-600 font-bold rounded-md mt-4 hover:bg-slate-100'>Already have an account? </button></a>
                 </div>
             </div>
     

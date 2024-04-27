@@ -49,7 +49,7 @@ const Login = () => {
           </div>
 
           <div className='flex justify-center'>
-              <button type='submit' className='border border-green-600 w-48 h-8 text-green-600 font-bold rounded-md mt-4 hover:bg-slate-100'>Signup now</button>
+             <a href="/Signup"><button type='submit' className='border border-green-600 w-48 h-8 text-green-600 font-bold rounded-md mt-4 hover:bg-slate-100'>Signup now</button></a>
             </div>
         </div>
 
