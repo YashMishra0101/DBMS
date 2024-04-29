@@ -13,4 +13,4 @@ function InvoiceData() {
   )
 }
 
-export default InvoiceData
+export default InvoiceData;
