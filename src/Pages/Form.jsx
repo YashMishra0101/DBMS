@@ -7,11 +7,9 @@ const Form = () => {
         <>
             <div className='flex container bg-[rgb(181,181,181)] h-screen'>
                 <Navebar />
-                <div className='m-auto justify-center container h-[600px] w-[1000px] bg-white rounded-xl git '>
-                    <h1 className='text-center font-serif font-bold text-4xl'>Form</h1>
-
-                    {/* Form Section */}
-                    <div className="bg-white rounded-xl p-8 mt-8 shadow-md">
+                <div className='grid grid-cols-2 gap-8 m-auto container h-[600px] w-[1000px] bg-white rounded-xl git'>
+                    <div className="bg-white rounded-xl p-8 shadow-md">
+                        <h1 className='text-center font-serif font-bold text-4xl'>Student Data</h1>
                         <form>
                             {/* Your provided form content */}
                             <div className="space-y-12">
@@ -28,7 +26,7 @@ const Form = () => {
                                                 type="button"
                                                 className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                                             >
-                                                Change
+                                                upload
                                             </button>
                                         </div>
                                     </div>
@@ -127,6 +125,61 @@ const Form = () => {
                                 </div>
                             </div>
                         </form>
+                    </div>
+                    <div className="bg-white rounded-xl p-8 shadow-md">
+                        <h1 className='text-center font-serif font-bold text-4xl'>Payment</h1>
+                        <div className="space-y-12 py-20">
+                            <div className="border-b border-gray-900/10 pb-12">
+                                <div className="sm:col-span-4">
+                                    <label htmlFor="totalPayments" className="block text-sm font-medium leading-6 text-gray-900">
+                                        Total Payments
+                                    </label>
+                                    <div className="mt-2">
+                                        <input
+                                            type="text"
+                                            name="totalPayments"
+                                            id="totalPayments"
+                                            className="block w-full border-2 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                            placeholder="Total Payments"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="sm:col-span-4">
+                                    <label htmlFor="paymentPaid" className="block text-sm font-medium leading-6 text-gray-900">
+                                        Payment Paid
+                                    </label>
+                                    <div className="mt-2">
+                                        <input
+                                            type="text"
+                                            name="paymentPaid"
+                                            id="paymentPaid"
+                                            className="block w-full border-2 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                            placeholder="Payment Paid"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="sm:col-span-4">
+                                    <label htmlFor="remainingPayment" className="block text-sm font-medium leading-6 text-gray-900">
+                                        Remaining Payment
+                                    </label>
+                                    <div className="mt-2">
+                                        <input
+                                            type="text"
+                                            name="remainingPayment"
+                                            id="remainingPayment"
+                                            className="block w-full border-2 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                            placeholder="Remaining Payment"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                                <button
+                                type="submit"
+                                className="inline-block px-6 py-4 rounded-md bg-lime-500 text-white font-semibold hover:bg-black transition duration-300"
+                            >
+                                Submit
+                            </button>
                     </div>
                 </div>
             </div>
