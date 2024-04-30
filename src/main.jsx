@@ -7,6 +7,7 @@ import {
   DigitalMaketing,
   EmployeeData,
   InvoiceData,
+  ViewData,
   Form,
   Login,
   Signup,
@@ -32,6 +33,7 @@ const router = createBrowserRouter(
       <Route path="signup" element={<Signup />} />
       <Route path="studentData" element ={<StudentData/>}/>
       <Route path="form" element ={<Form/>}/>
+      <Route path="viewdata" element ={<ViewData/>}/>
     </Route>
   )
 );
