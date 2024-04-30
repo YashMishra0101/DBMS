@@ -5,6 +5,7 @@ import DigitialMarketing from "./Pages/DigitialMarketing";
 import EmployeeData from "./Pages/EmployeeData";
 import InvoiceData from "./Pages/InvoiceData";
 import StudentData from "./Pages/StudentData";
+import Form from "./Pages/Form";
 import { BrowserRouter,Routes,Route } from "react-router-dom";
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Route path="/EmployeeData" element={<EmployeeData/>}/>
       <Route path="/InvoiceData" element={<InvoiceData/>}/>
       <Route path="/StudentData" element={<StudentData/>}/>
+      <Route path="/form" element={<Form/>}/>
 
 
     </Routes>
