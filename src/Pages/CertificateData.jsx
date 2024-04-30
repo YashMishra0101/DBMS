@@ -36,4 +36,4 @@ function CertificateData() {
   );
 }
 
-export default CertificateData;
+export default CertificateData
