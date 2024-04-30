@@ -19,6 +19,13 @@ const Signup = () => {
             loop 
           />
           <form action="/StudentData" className='mt-4 flex flex-col gap-4'>
+
+          <div className='flex flex-col'>
+              <label htmlFor="username" className='text-slate-600 font-extrabold text-base'>Username</label>
+              <div className='flex '>
+                <input type="text" id='username' placeholder='Enter your username' className='bg-gray-200 w-72 h-10 rounded-sm placeholder-slate-400 pl-4 '/> <img src={mail} alt="" srcSet="" className='size-10'/>
+              </div>
+            </div>
             
             <div className='flex flex-col'>
               <label htmlFor="email" className='text-slate-600 font-extrabold text-base'>Email address</label>
