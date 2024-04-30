@@ -5,5 +5,6 @@ export {default as InvoiceData} from '../Pages/InvoiceData';
 export {default as Login} from '../Pages/Login';
 export {default as Signup} from '../Pages/Signup';
 export {default as StudentData} from '../Pages/StudentData';
+export {default as Form} from '../Pages/Form';
 
 

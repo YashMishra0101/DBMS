@@ -1,7 +1,4 @@
-// InvoiceData.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { FaEye, FaPlus } from 'react-icons/fa';
 import Navebar from '../Components/Navebar';
 
 function InvoiceData() {
@@ -18,8 +15,4 @@ function InvoiceData() {
   );
 }
 
-<<<<<<< HEAD
 export default InvoiceData;
-=======
-export default InvoiceData;
->>>>>>> 87491ea8c8294e7e1fedf259ab3339571724a449
