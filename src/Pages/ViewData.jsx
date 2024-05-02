@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navebar from '../Components/Navebar';
+import { collection, getDocs } from 'firebase/firestore';
+import { fireDb } from '../Firebase/FirebaseConfig';
 
 const ViewData = () => {
-    const formData = [
-        { username: 'John Doe', dob: '1990-01-01', contact: '1234567890', email: 'john@example.com', aadhar: '1234 5678 9012', remainingPayment: '$500' },
-        { username: 'Jane Smith', dob: '1995-05-05', contact: '9876543210', email: 'jane@example.com', aadhar: '9876 5432 1098', remainingPayment: '$300' }
-    ];
+    const [formData, setFormData] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const querySnapshot = await getDocs(collection(fireDb, 'studentDataForms'));
+                const data = [];
+                querySnapshot.forEach((doc) => {
+                    data.push({ id: doc.id, ...doc.data() });
+                });
+                setFormData(data);
+            } catch (error) {
+                console.error('Error fetching form data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <>
@@ -20,10 +36,13 @@ const ViewData = () => {
                             <thead className="bg-gray-50">
                                 <tr>
                                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Photo
+                                    </th>
+                                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Name
                                     </th>
                                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Date of Birth
+                                        DOB
                                     </th>
                                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Contact Number
@@ -43,6 +62,11 @@ const ViewData = () => {
                                 {formData.map((entry, index) => (
                                     <tr key={index}>
                                         <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="h-10 w-10 overflow-hidden rounded-full">
+                                                <img src={entry.photoUrl} alt="Student" className="h-full w-full object-cover" />
+                                            </div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
                                             {entry.username}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
@@ -55,7 +79,7 @@ const ViewData = () => {
                                             {entry.email}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                            {entry.aadhar}
+                                            {entry.aadharNumber}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             {entry.remainingPayment}
