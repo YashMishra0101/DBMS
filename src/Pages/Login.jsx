@@ -1,17 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import bg from "../assets/Frame2.png";
 import pic from "../assets/girl.png";
 import mail from "../assets/mailicon.png";
 import pass from "../assets/password.png";
-import { NavLink } from "react-router-dom"; 
+import { NavLink, useNavigate } from "react-router-dom"; 
 import { ReactTyped } from "react-typed";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../Firebase/FirebaseConfig";
+import { toast } from "react-hot-toast";
+
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      toast.success("Login Successful");
+      navigate("/studentData");
+    } catch (error) {
+      console.log(`Login failed :${error.message}`);
+      toast.error("Invalid email or password");
+    }
+  };
+
   return (
-    <div
-      className=" h-screen relative"
-      style={{ backgroundImage: `url(${bg})`, backgroundSize: "cover" }}
-    >
+    <div className="h-screen relative" style={{ backgroundImage: `url(${bg})`, backgroundSize: "cover" }}>
       <div className="absolute h-[34rem] w-[59rem]  right-20 top-[10rem]  border-8 border-blue-900 shadow-lg shadow-blue-500/50 rounded-3xl grid grid-cols-2 ">
         <div className="bg-white h-full rounded-xl flex flex-col justify-center items-center">
           <ReactTyped
@@ -21,7 +42,7 @@ const Login = () => {
             backSpeed={60}
             loop
           />
-          <form action="/studentData" className="mt-4 flex flex-col gap-4">
+          <form onSubmit={handleLogin} className="mt-4 flex flex-col gap-4">
             <div className="flex flex-col">
               <label
                 htmlFor="email"
@@ -34,9 +55,11 @@ const Login = () => {
                   type="email"
                   id="email"
                   placeholder="xyz@gmail.com"
-                  className="bg-gray-200 w-72 h-10 rounded-sm placeholder-slate-400 pl-4 "
+                  required
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="bg-gray-200 w-72 h-10 rounded-sm placeholder-slate-400 pl-4"
                 />{" "}
-                <img src={mail} alt="" srcSet="" className="size-10" />
+                <img src={mail} alt="" className="size-10" />
               </div>
             </div>
 
@@ -52,16 +75,18 @@ const Login = () => {
                   type="password"
                   id="password"
                   placeholder="Enter your password"
-                  className="bg-gray-200 w-72 h-10 rounded-sm placeholder-slate-400 pl-4 "
+                  required
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="bg-gray-200 w-72 h-10 rounded-sm placeholder-slate-400 pl-4"
                 />{" "}
-                <img src={pass} alt="" srcSet="" className="size-10" />
+                <img src={pass} alt="" className="size-10" />
               </div>
             </div>
 
-            <div className="flex justify-center ">
+            <div className="flex justify-center">
               <button
                 type="submit"
-                className="bg-orange-500 w-48 h-8 text-white font-bold rounded-md hover:bg-orange-600 "
+                className="bg-orange-500 w-48 h-8 text-white font-bold rounded-md hover:bg-orange-600"
               >
                 Login
               </button>
@@ -80,9 +105,8 @@ const Login = () => {
           </div>
 
           <div className="flex justify-center">
-            <NavLink to="/signup"> 
+            <NavLink to="/signup">
               <button
-                type="submit"
                 className="border border-green-600 w-48 h-8 text-green-600 font-bold rounded-md mt-4 hover:bg-slate-100"
               >
                 Signup now
