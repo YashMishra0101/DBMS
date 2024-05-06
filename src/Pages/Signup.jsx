@@ -9,6 +9,36 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, fireDb } from "../Firebase/FirebaseConfig";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { toast } from "react-hot-toast";
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import FaEyeSlash for hiding the password
+
+const PasswordInput = ({ value, onChange }) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  return (
+    <div className="relative">
+      <input
+        type={showPassword ? "text" : "password"}
+        placeholder="Enter your password"
+        value={value}
+        onChange={onChange}
+        className="bg-gray-200 w-full h-10 rounded-sm placeholder-slate-400 pl-5 pr-4"
+      />
+      <button
+        type="button"
+        className="absolute right-0 top-0 bottom-0 mt-auto mb-auto mr-0 flex items-center text-gray-400 hover:text-gray-600"
+        onClick={togglePasswordVisibility}
+      >
+        {showPassword ? <FaEyeSlash /> : <FaEye className="mr-1" />}
+        <img src={pass} alt="" className="ml-1 size-10" />
+      </button>
+      
+    </div>
+  );
+};
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -101,17 +131,7 @@ const Signup = () => {
               >
                 Password
               </label>
-              <div className="flex ">
-                <input
-                  type="password"
-                  id="password"
-                  placeholder="Enter your password"
-                  required
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="bg-gray-200 w-72 h-10 rounded-sm placeholder-slate-400 pl-4"
-                />
-                <img src={pass} alt="" className="size-10" />
-              </div>
+              <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
 
             <div className="flex flex-col">
@@ -121,17 +141,7 @@ const Signup = () => {
               >
                 Confirm Password
               </label>
-              <div className="flex ">
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  placeholder="Confirm your password"
-                  required
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="bg-gray-200 w-72 h-10 rounded-sm placeholder-slate-400 pl-4"
-                />
-                <img src={pass} alt="" className="size-10" />
-              </div>
+              <PasswordInput value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
             </div>
 
             <div className="flex justify-center ">

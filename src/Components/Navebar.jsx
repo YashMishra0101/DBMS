@@ -26,7 +26,7 @@ function Navebar() {
               <div className='  bg-black text-white rounded-full p-4 text-center w-5/6 m-auto hover:bg-[#FD7401]'>Employee Data</div>
             </NavLink>
             <NavLink to="/">
-              <div className='  bg-lime-500 text-black rounded-full p-4 text-center w-2/6 m-auto hover:bg-[#FD7401] text-white'>Log Out</div>
+              <div className='  bg-lime-500 rounded-full p-4 text-center w-2/6 m-auto hover:bg-[#FD7401] text-white'>Log Out</div>
             </NavLink>
           </div>
         </div>
