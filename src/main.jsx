@@ -9,6 +9,9 @@ import {
   EmployeeData,
   InvoiceData,
   ViewData,
+  CertificateCategory,
+  EmployeCategory,
+  InvoiceCategory,
   Form,
   Login,
   Signup,
@@ -43,6 +46,9 @@ const router = createBrowserRouter(
       <Route path="formemployeedata" element ={<EmployeeDataForm/>}/>
       <Route path="viewdigitalmarketing" element ={<ViewDigitalMarketingData/>}/>
       <Route path="invoiceform" element ={<InvoiceForm/>}/>
+      <Route path="certificatecategory" element ={<CertificateCategory/>}/>
+      <Route path="employecategory" element ={<EmployeCategory/>}/>
+      <Route path="invoicecategory" element ={<InvoiceCategory/>}/>
     </Route>
   )
 );
