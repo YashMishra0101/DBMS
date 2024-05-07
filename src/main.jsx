@@ -12,6 +12,7 @@ import {
   Form,
   Login,
   Signup,
+  InvoiceForm,
   StudentData,
 } from "./Components/index.js";
 
@@ -35,6 +36,7 @@ const router = createBrowserRouter(
       <Route path="studentData" element ={<StudentData/>}/>
       <Route path="form" element ={<Form/>}/>
       <Route path="viewdata" element ={<ViewData/>}/>
+      <Route path="invoiceform" element ={<InvoiceForm/>}/>
     </Route>
   )
 );

@@ -21,7 +21,7 @@ function InvoiceData() {
             </Link>
             <div className="border-l border-orange-600 h-80 border-solid border-8"></div>
 
-            <Link to="/form">
+            <Link to="/invoiceform">
               <div className='bg-black text-white h-30 w-30 rounded-lg p-4 flex flex-col items-center justify-center hover:bg-[#FD7401]'>
                 <FaPlus className="text-5xl mb-2" />
                 <div className="ml-2 text-4xl">Insert Data</div>
