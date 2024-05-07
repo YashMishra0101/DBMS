@@ -61,7 +61,7 @@ const InvoiceForm = () => {
               >
                 <option value=''>Select Category</option> {/* Initially empty option */}
                 <option value='option1'>Internship</option>
-                <option value='option2'>Digital Marketer</option>
+                <option value='option2'>Digital Marketing Client</option>
                 <option value='option3'>Job Consultancy</option>
               </select>
             </div>
