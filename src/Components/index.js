@@ -10,3 +10,6 @@ export {default as ViewData} from '../Pages/ViewData';
 export {default as DigitialMarketingForm} from '../Pages/DigitalMarketingForm';
 export {default as EmployeeDataForm} from '../Pages/EmployeeDataForm';
 export {default as ViewDigitalMarketingData} from '../Pages/ViewDigitalMarketingData'
+export {default as InvoiceForm} from '../Pages/InvoiceForm';
+
+

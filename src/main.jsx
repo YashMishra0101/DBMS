@@ -12,6 +12,7 @@ import {
   Form,
   Login,
   Signup,
+  InvoiceForm,
   StudentData,
   DigitialMarketingForm,
   EmployeeDataForm,
@@ -41,6 +42,7 @@ const router = createBrowserRouter(
       <Route path="viewdata" element ={<ViewData/>}/>
       <Route path="formemployeedata" element ={<EmployeeDataForm/>}/>
       <Route path="viewdigitalmarketing" element ={<ViewDigitalMarketingData/>}/>
+      <Route path="invoiceform" element ={<InvoiceForm/>}/>
     </Route>
   )
 );
