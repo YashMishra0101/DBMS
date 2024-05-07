@@ -7,5 +7,6 @@ export {default as Signup} from '../Pages/Signup';
 export {default as StudentData} from '../Pages/StudentData';
 export {default as Form} from '../Pages/StudentDataForm';
 export {default as ViewData} from '../Pages/ViewData';
-
-
+export {default as DigitialMarketingForm} from '../Pages/DigitalMarketingForm';
+export {default as EmployeeDataForm} from '../Pages/EmployeeDataForm';
+export {default as ViewDigitalMarketingData} from '../Pages/ViewDigitalMarketingData'
