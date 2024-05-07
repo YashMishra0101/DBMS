@@ -14,5 +14,12 @@ export {default as InvoiceForm} from '../Pages/InvoiceForm';
 export {default as CertificateCategory} from '../Pages/CategoryPages/CertificateCategory';
 export {default as EmployeCategory} from '../Pages/CategoryPages/EmployeCategory';
 export {default as InvoiceCategory} from '../Pages/CategoryPages/InvoiceCategory';
+export {default as ViewCertificateExperienceData} from '../Pages/ViewCertificateExperienceData';
+export {default as ViewCertificateIntern} from '../Pages/ViewCertificateIntern';
+export {default as ViewEmployeData} from '../Pages/ViewEmployeData';
+export {default as ViewInternData} from '../Pages/ViewInternData';
+export {default as ViewInvoiceDigitalMarketingData} from '../Pages/ViewInvoiceDigitalMarketingData';
+export {default as ViewInvoiceInterData} from '../Pages/ViewInvoiceInterData';
+export {default as ViewInvoiceJobConsultancyData} from '../Pages/ViewInvoiceJobConsultancyData';
 
 

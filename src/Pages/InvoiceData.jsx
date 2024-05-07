@@ -11,7 +11,7 @@ function InvoiceData() {
         <div className='m-auto justify-center container h-[600px] w-[1000px] bg-white rounded-xl git'>
           <h1 className='text-center font-serif font-bold text-4xl'>Invoice Data</h1>
           <div className='flex justify-center items-center my-10 py-20 space-x-40'>
-            <Link to="/InvoiceData">
+            <Link to="/invoicecategory">
               <div className='bg-black text-white h-30 w-30 rounded-lg p-4 flex flex-col items-center justify-center hover:bg-[#FD7401]'>
                 <FaEye className="text-5xl mb-2" />
                 <div className="text-4xl">View Data</div>
