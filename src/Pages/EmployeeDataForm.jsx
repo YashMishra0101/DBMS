@@ -13,30 +13,22 @@ import { fireDb } from "../Firebase/FirebaseConfig";
 import { useNavigate } from "react-router";
 
 const EmployeeDataForm = () => {
+  const [identificationNumber, setIdentificationNumber] = useState("");
+  const [identificationType, setIdentificationType] = useState("PAN");
+
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    username: "",
+    photo: null,
+    photoUrl: "",
+    name: "",
     dob: "",
     contact: "",
     email: "",
-    aadharNumber: "",
-    totalPayments: 0,
-    paymentPaid: 0,
-    remainingPayment: 0,
-    photo: null,
-    photoUrl: "",
+    identificationType: "PAN", // Include identificationType in formData
+    identificationNumber: "", // Include identificationNumber in formData
+    status: "employee", // Assuming you have a status field in your form
   });
-  const [identificationType, setIdentificationType] = useState("PAN");
-
-  const [identificationNumber, setIdentificationNumber] = useState("");
-
-  const handleIdentificationNumberChange = (event) => {
-    setIdentificationNumber(event.target.value);
-  };
-  const handleIdentificationTypeChange = (event) => {
-    setIdentificationType(event.target.value);
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,55 +41,54 @@ const EmployeeDataForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { photo, ...formDataWithoutPhoto } = formData;
-
+      const { photo, identificationType, identificationNumber, ...formDataWithoutPhoto } = formData;
+  
       const docRef = await addDoc(
-        collection(fireDb, "studentDataForms"),
+        collection(fireDb, "EmployeeDataForm"),
         formDataWithoutPhoto
       );
-
-      if (formData.photo) {
+  
+      let photoUrl = ""; // Define photoUrl variable
+  
+      if (photo) {
         const storageRef = ref(getStorage());
-        const photoRef = ref(storageRef, `${docRef.id}/${formData.photo.name}`);
-        await uploadBytes(photoRef, formData.photo);
-
+        const photoRef = ref(storageRef, `${docRef.id}/${photo.name}`);
+        await uploadBytes(photoRef, photo);
+        
         // Get the download URL of the uploaded photo
-        const photoUrl = await getDownloadURL(photoRef);
-
+        photoUrl = await getDownloadURL(photoRef);
+  
         // Update Firestore document with photo URL
-        await updateDoc(doc(fireDb, "studentDataForms", docRef.id), {
+        await updateDoc(doc(fireDb, "EmployeeDataForm", docRef.id), {
           photoUrl: photoUrl,
         });
-
+  
         // Update the formData state with the photo URL
         setFormData((prevState) => ({
           ...prevState,
           photoUrl: photoUrl,
         }));
       }
-
-      // Calculate remaining payment
-      const remainingPayment = formData.totalPayments - formData.paymentPaid;
-
+  
       // Update Firestore document with remaining payment
-      await updateDoc(doc(fireDb, "studentDataForms", docRef.id), {
-        remainingPayment: remainingPayment,
+      await updateDoc(doc(fireDb, "EmployeeDataForm", docRef.id), {
+        identificationType: identificationType,
+        identificationNumber: identificationNumber,
       });
-
+  
       // Clear form data after submission
       setFormData({
-        username: "",
+        photo: null,
+        photoUrl: "",
+        name: "",
         dob: "",
         contact: "",
         email: "",
-        aadharNumber: "",
-        totalPayments: 0,
-        paymentPaid: 0,
-        remainingPayment: remainingPayment, // Set remaining payment to calculated value
-        photo: null,
-        photoUrl: "",
+        identificationType: "PAN",
+        identificationNumber: "",
+        status: "employee",
       });
-
+  
       // Show success message
       toast.success("Form data submitted successfully!");
       navigate("/viewdata");
@@ -107,6 +98,7 @@ const EmployeeDataForm = () => {
       toast.error("Failed to submit form data. Please try again.");
     }
   };
+  
 
   const handleImageUpload = (e) => {
     setFormData({
@@ -114,10 +106,11 @@ const EmployeeDataForm = () => {
       photo: e.target.files[0],
     });
   };
-
-  const calculateRemainingPayment = () => {
-    const remaining = formData.totalPayments - formData.paymentPaid;
-    return remaining >= 0 ? remaining : 0;
+  const handleIdentificationNumberChange = (event) => {
+    setIdentificationNumber(event.target.value);
+  };
+  const handleIdentificationTypeChange = (event) => {
+    setIdentificationType(event.target.value);
   };
   return (
     <>
@@ -166,12 +159,10 @@ const EmployeeDataForm = () => {
                     </div>
                   </div>
 
-                  
-
                   {/* Username */}
                   <div className="sm:col-span-4">
                     <label
-                      htmlFor="username"
+                      htmlFor="name"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Name of Employee/Intern
@@ -180,12 +171,12 @@ const EmployeeDataForm = () => {
                       <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                         <input
                           type="text"
-                          name="username"
-                          id="username"
-                          autoComplete="username"
+                          name="name"
+                          id="name"
+                          autoComplete="name"
                           className="block w-full border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                           placeholder="Full Name"
-                          value={formData.username}
+                          value={formData.name}
                           onChange={handleChange}
                         />
                       </div>
@@ -261,43 +252,43 @@ const EmployeeDataForm = () => {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label
-                      htmlFor="identificationType"
-                      className="block mb-2 text-sm font-medium text-gray-600"
-                    >
-                      Identification Type
-                    </label>
-                    <select
-                      name="identificationType"
-                      id="identificationType"
-                      value={identificationType}
-                      onChange={handleIdentificationTypeChange}
-                      className="bg-gray-50 bg-opacity-70 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 "
-                    >
-                      <option value="PAN">PAN</option>
-                      <option value="Aadhar">Aadhar</option>
-                    </select>
+                    <div>
+                      <label
+                        htmlFor="identificationType"
+                        className="block mb-2 text-sm font-medium text-gray-600"
+                      >
+                        Identification Type
+                      </label>
+                      <select
+                        name="identificationType"
+                        id="identificationType"
+                        value={identificationType}
+                        onChange={handleIdentificationTypeChange}
+                        className="bg-gray-50 bg-opacity-70 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 "
+                      >
+                        <option value="PAN">PAN</option>
+                        <option value="Aadhar">Aadhar</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label
+                        htmlFor={identificationType.toLowerCase() + "Number"}
+                        className="block mb-2 text-sm font-medium text-gray-600"
+                      >
+                        {identificationType} Number
+                      </label>
+                      <input
+                        type="text"
+                        name={identificationType.toLowerCase() + "Number"}
+                        id={identificationType.toLowerCase() + "Number"}
+                        value={identificationNumber}
+                        onChange={handleIdentificationNumberChange}
+                        className="bg-gray-50 bg-opacity-70 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder={`Enter your ${identificationType} Number`}
+                        // required
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <label
-                      htmlFor={identificationType.toLowerCase() + "Number"}
-                      className="block mb-2 text-sm font-medium text-gray-600"
-                    >
-                      {identificationType} Number
-                    </label>
-                    <input
-                      type="text"
-                      name={identificationType.toLowerCase() + "Number"}
-                      id={identificationType.toLowerCase() + "Number"}
-                      value={identificationNumber}
-                      onChange={handleIdentificationNumberChange}
-                      className="bg-gray-50 bg-opacity-70 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder={`Enter your ${identificationType} Number`}
-                      // required
-                    />
-                  </div>
-                </div>
                 </div>
               </div>
               <button
@@ -313,50 +304,50 @@ const EmployeeDataForm = () => {
               Employee Status
             </h1>
             <div className="space-y-12 py-20">
-            <div className="sm:col-span-4">
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="status"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Employee/Intern
+                </label>
+                <div className="mt-2">
+                  <div className="flex items-center">
+                    <input
+                      type="radio"
+                      id="employee"
+                      name="status"
+                      value="employee"
+                      className="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
+                      checked={formData.status === "employee"}
+                      onChange={handleChange}
+                    />
                     <label
-                      htmlFor="status"
-                      className="block text-sm font-medium leading-6 text-gray-900"
+                      htmlFor="employee"
+                      className="ml-2 block text-sm leading-5 text-gray-900"
                     >
-                      Employee/Intern
+                      Employee
                     </label>
-                    <div className="mt-2">
-                      <div className="flex items-center">
-                        <input
-                          type="radio"
-                          id="employee"
-                          name="status"
-                          value="employee"
-                          className="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
-                          checked={formData.status === "employee"}
-                          onChange={handleChange}
-                        />
-                        <label
-                          htmlFor="employee"
-                          className="ml-2 block text-sm leading-5 text-gray-900"
-                        >
-                          Employee
-                        </label>
-                      </div>
-                      <div className="flex items-center mt-2">
-                        <input
-                          type="radio"
-                          id="intern"
-                          name="status"
-                          value="intern"
-                          className="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
-                          checked={formData.status === "intern"}
-                          onChange={handleChange}
-                        />
-                        <label
-                          htmlFor="intern"
-                          className="ml-2 block text-sm leading-5 text-gray-900"
-                        >
-                          Intern
-                        </label>
-                      </div>
-                    </div>
                   </div>
+                  <div className="flex items-center mt-2">
+                    <input
+                      type="radio"
+                      id="intern"
+                      name="status"
+                      value="intern"
+                      className="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
+                      checked={formData.status === "intern"}
+                      onChange={handleChange}
+                    />
+                    <label
+                      htmlFor="intern"
+                      className="ml-2 block text-sm leading-5 text-gray-900"
+                    >
+                      Intern
+                    </label>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -9,7 +9,7 @@ const ViewDigitalMarketingData = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const querySnapshot = await getDocs(collection(fireDb, 'studentDataForms'));
+                const querySnapshot = await getDocs(collection(fireDb, 'DigitalMarketingFormData'));
                 const data = [];
                 querySnapshot.forEach((doc) => {
                     data.push({ id: doc.id, ...doc.data() });
@@ -66,27 +66,26 @@ const ViewDigitalMarketingData = () => {
                                     {formData.map((entry, index) => (
                                         <tr key={index}>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="h-10 w-10 overflow-hidden rounded-full">
-                                                    <img src={entry.photoUrl} alt="Student" className="h-full w-full object-cover" />
-                                                </div>
+                                            {entry.clientName}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                {entry.username}
+                                                {entry.businessname}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                {entry.dob}
+                                            {entry.email}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 {entry.contact}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                {entry.email}
+                                                {entry.remarks}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                {entry.aadharNumber}
+                                                {entry.startDate}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                {entry.remainingPayment}
+                                                {entry.endDate}
+                                                {entry.startDateOption}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 {entry.remainingPayment}

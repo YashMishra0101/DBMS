@@ -27,7 +27,8 @@ import {
   ViewInvoiceDigitalMarketingData,
   ViewInvoiceInterData,
   ViewInvoiceJobConsultancyData,
-  CertificateDataForm
+  CertificateDataForm,
+  ViewInvoiceData,
 } from "./Components/index.js";
 
 import {
@@ -60,6 +61,8 @@ const router = createBrowserRouter(
       <Route path="invoicecategory" element ={<InvoiceCategory/>}/>
       <Route path="viewcertificateexperiencedata" element ={<ViewCertificateExperienceData/>}/>
       <Route path="viewcertificatentern" element ={<ViewCertificateIntern/>}/>
+      <Route path="viewInvoiceData" element ={<ViewInvoiceData/>}/>
+      <Route path="viewEmployeData" element ={<ViewEmployeData/>}/>
     </Route>
   )
 );
