@@ -9,7 +9,7 @@ const ViewEmployeData = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const querySnapshot = await getDocs(collection(fireDb, 'studentDataForms'));
+                const querySnapshot = await getDocs(collection(fireDb, 'EmployeeDataForm'));
                 const data = [];
                 querySnapshot.forEach((doc) => {
                     data.push({ id: doc.id, ...doc.data() });
@@ -40,7 +40,10 @@ const ViewEmployeData = () => {
                                             Photo
                                         </th>
                                         <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Name of the Employee
+                                            Name
+                                        </th>
+                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Status
                                         </th>
                                         <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             DOB
@@ -69,7 +72,10 @@ const ViewEmployeData = () => {
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                {entry.username}
+                                                {entry.name}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                {entry.status}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 {entry.dob}

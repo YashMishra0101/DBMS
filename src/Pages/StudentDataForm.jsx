@@ -134,6 +134,7 @@ const StudentDataForm = () => {
                         id="image"
                         onChange={handleImageUpload}
                         className="hidden"
+                        required
                       />
                       <label
                         htmlFor="image"
@@ -171,6 +172,7 @@ const StudentDataForm = () => {
                           placeholder="Full Name"
                           value={formData.username}
                           onChange={handleChange}
+                          required
                         />
                       </div>
                     </div>
@@ -194,6 +196,7 @@ const StudentDataForm = () => {
                           placeholder="DD-MM-YYYY"
                           value={formData.dob}
                           onChange={handleChange}
+                          required
                         />
                       </div>
                     </div>
@@ -216,6 +219,7 @@ const StudentDataForm = () => {
                           placeholder="Contact Number"
                           value={formData.contact}
                           onChange={handleChange}
+                          required
                         />
                       </div>
                     </div>
@@ -239,6 +243,7 @@ const StudentDataForm = () => {
                           placeholder="Email Address"
                           value={formData.email}
                           onChange={handleChange}
+                          required
                         />
                       </div>
                     </div>
@@ -262,6 +267,7 @@ const StudentDataForm = () => {
                           placeholder="Aadhar Number"
                           value={formData.aadharNumber}
                           onChange={handleChange}
+                          required
                         />
                       </div>
                     </div>
@@ -298,6 +304,7 @@ const StudentDataForm = () => {
                       placeholder="Total Payments"
                       value={formData.totalPayments}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>
@@ -317,6 +324,7 @@ const StudentDataForm = () => {
                       placeholder="Payment Paid"
                       value={formData.paymentPaid}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>
