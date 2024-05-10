@@ -11,6 +11,7 @@ export {default as DigitialMarketingForm} from '../Pages/DigitalMarketingForm';
 export {default as EmployeeDataForm} from '../Pages/EmployeeDataForm';
 export {default as ViewDigitalMarketingData} from '../Pages/ViewDigitalMarketingData'
 export {default as InvoiceForm} from '../Pages/InvoiceForm';
+export {default as CertificateDataForm} from '../Pages/CertificateDataForm';
 export {default as CertificateCategory} from '../Pages/CategoryPages/CertificateCategory';
 export {default as EmployeCategory} from '../Pages/CategoryPages/EmployeCategory';
 export {default as InvoiceCategory} from '../Pages/CategoryPages/InvoiceCategory';
