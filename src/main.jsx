@@ -60,11 +60,6 @@ const router = createBrowserRouter(
       <Route path="invoicecategory" element ={<InvoiceCategory/>}/>
       <Route path="viewcertificateexperiencedata" element ={<ViewCertificateExperienceData/>}/>
       <Route path="viewcertificatentern" element ={<ViewCertificateIntern/>}/>
-      <Route path="viewemployedata" element ={<ViewEmployeData/>}/>
-      <Route path="viewinterndata" element ={<ViewInternData/>}/>
-      <Route path="viewinvoicedigitalmarketingdata" element ={<ViewInvoiceDigitalMarketingData/>}/>
-      <Route path="viewinvoiceinterdata" element ={<ViewInvoiceInterData/>}/>
-      <Route path="viewinvoiceJobconsultancydata" element ={<ViewInvoiceJobConsultancyData/>}/>
     </Route>
   )
 );

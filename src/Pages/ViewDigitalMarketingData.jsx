@@ -37,22 +37,25 @@ const ViewDigitalMarketingData = () => {
                                 <thead className="bg-gray-50">
                                     <tr>
                                         <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Photo
+                                            Name of Client
                                         </th>
                                         <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Name
+                                            Business Name
                                         </th>
                                         <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            DOB
+                                            Email
                                         </th>
                                         <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             Contact Number
                                         </th>
                                         <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Email Address
+                                            Remarks
                                         </th>
                                         <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Aadhar Number
+                                            Start Date
+                                        </th>
+                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            End Date
                                         </th>
                                         <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             Remaining Payment
@@ -81,6 +84,9 @@ const ViewDigitalMarketingData = () => {
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 {entry.aadharNumber}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                {entry.remainingPayment}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 {entry.remainingPayment}

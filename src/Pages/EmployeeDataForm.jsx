@@ -27,6 +27,16 @@ const EmployeeDataForm = () => {
     photo: null,
     photoUrl: "",
   });
+  const [identificationType, setIdentificationType] = useState("PAN");
+
+  const [identificationNumber, setIdentificationNumber] = useState("");
+
+  const handleIdentificationNumberChange = (event) => {
+    setIdentificationNumber(event.target.value);
+  };
+  const handleIdentificationTypeChange = (event) => {
+    setIdentificationType(event.target.value);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -250,28 +260,44 @@ const EmployeeDataForm = () => {
                     </div>
                   </div>
 
-                  <div className="sm:col-span-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
                     <label
-                      htmlFor="aadharNumber"
-                      className="block text-sm font-medium leading-6 text-gray-900"
+                      htmlFor="identificationType"
+                      className="block mb-2 text-sm font-medium text-gray-600"
                     >
-                      Document Number
+                      Identification Type
                     </label>
-                    <div className="mt-2">
-                      <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                        <input
-                          type="text"
-                          name="aadharNumber"
-                          id="aadharNumber"
-                          autoComplete="tel"
-                          className="block w-full border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                          placeholder="Aadhar Number"
-                          value={formData.aadharNumber}
-                          onChange={handleChange}
-                        />
-                      </div>
-                    </div>
+                    <select
+                      name="identificationType"
+                      id="identificationType"
+                      value={identificationType}
+                      onChange={handleIdentificationTypeChange}
+                      className="bg-gray-50 bg-opacity-70 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 "
+                    >
+                      <option value="PAN">PAN</option>
+                      <option value="Aadhar">Aadhar</option>
+                    </select>
                   </div>
+                  <div>
+                    <label
+                      htmlFor={identificationType.toLowerCase() + "Number"}
+                      className="block mb-2 text-sm font-medium text-gray-600"
+                    >
+                      {identificationType} Number
+                    </label>
+                    <input
+                      type="text"
+                      name={identificationType.toLowerCase() + "Number"}
+                      id={identificationType.toLowerCase() + "Number"}
+                      value={identificationNumber}
+                      onChange={handleIdentificationNumberChange}
+                      className="bg-gray-50 bg-opacity-70 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder={`Enter your ${identificationType} Number`}
+                      // required
+                    />
+                  </div>
+                </div>
                 </div>
               </div>
               <button
