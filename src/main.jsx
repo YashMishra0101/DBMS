@@ -21,7 +21,13 @@ import {
   EmployeeDataForm,
   ViewDigitalMarketingData,
   ViewCertificateExperienceData,
-  ViewCertificateIntern
+  ViewCertificateIntern,
+  ViewEmployeData,
+  ViewInternData,
+  ViewInvoiceDigitalMarketingData,
+  ViewInvoiceInterData,
+  ViewInvoiceJobConsultancyData,
+  CertificateDataForm
 } from "./Components/index.js";
 
 import {
@@ -48,11 +54,17 @@ const router = createBrowserRouter(
       <Route path="formemployeedata" element ={<EmployeeDataForm/>}/>
       <Route path="viewdigitalmarketing" element ={<ViewDigitalMarketingData/>}/>
       <Route path="invoiceform" element ={<InvoiceForm/>}/>
+      <Route path="certificatedataform" element ={<CertificateDataForm/>}/>
       <Route path="certificatecategory" element ={<CertificateCategory/>}/>
       <Route path="employecategory" element ={<EmployeCategory/>}/>
       <Route path="invoicecategory" element ={<InvoiceCategory/>}/>
       <Route path="viewcertificateexperiencedata" element ={<ViewCertificateExperienceData/>}/>
       <Route path="viewcertificatentern" element ={<ViewCertificateIntern/>}/>
+      <Route path="viewemployedata" element ={<ViewEmployeData/>}/>
+      <Route path="viewinterndata" element ={<ViewInternData/>}/>
+      <Route path="viewinvoicedigitalmarketingdata" element ={<ViewInvoiceDigitalMarketingData/>}/>
+      <Route path="viewinvoiceinterdata" element ={<ViewInvoiceInterData/>}/>
+      <Route path="viewinvoiceJobconsultancydata" element ={<ViewInvoiceJobConsultancyData/>}/>
     </Route>
   )
 );
