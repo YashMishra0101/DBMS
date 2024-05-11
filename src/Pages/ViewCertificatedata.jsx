@@ -3,14 +3,14 @@ import Navebar from "../Components/Navebar";
 import { collection, getDocs } from "firebase/firestore";
 import { fireDb } from "../Firebase/FirebaseConfig";
 
-const ViewEmployeData = () => {
+const ViewCertificatedata = () => {
   const [formData, setFormData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const querySnapshot = await getDocs(
-          collection(fireDb, "EmployeeDataForm")
+          collection(fireDb, "CertificateDataForm")
         );
         const data = [];
         querySnapshot.forEach((doc) => {
@@ -31,7 +31,7 @@ const ViewEmployeData = () => {
         <Navebar />
         <div className="m-auto container max-w-[1020px] bg-white rounded-xl git overflow-hidden px-5">
           <h1 className="text-center font-serif font-bold text-4xl">
-            Employee Data
+          Certificate Data
           </h1>
 
           {/* Table Section */}
@@ -56,37 +56,31 @@ const ViewEmployeData = () => {
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      Status
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
                       DOB
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      Contact Number
+                     Document Type
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      Email Address
+                     Documnet Number
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      Document Type
+                    Category of Certificate
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      Document Number
+                      Position
                     </th>
                   </tr>
                 </thead>
@@ -95,7 +89,7 @@ const ViewEmployeData = () => {
                     <tr key={index}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="h-10 w-10 overflow-hidden rounded-full">
-                          <a
+                        <a
                             href={entry.photoUrl}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -110,26 +104,27 @@ const ViewEmployeData = () => {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {entry.name}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {entry.status}
+                        {entry.username}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         {entry.dob}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {entry.contact}
+            
+                      {entry.selectedOption}
+                      
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {entry.email}
+                      {entry.aadharNumber}
+                      {entry.PanNumber}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {entry.identificationType}
+                        {entry.categoryofCertificate}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {entry.identificationNumber}
+                        {entry.position}
                       </td>
+                      
                     </tr>
                   ))}
                 </tbody>
@@ -142,4 +137,4 @@ const ViewEmployeData = () => {
   );
 };
 
-export default ViewEmployeData;
+export default ViewCertificatedata;

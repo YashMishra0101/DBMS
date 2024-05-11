@@ -25,9 +25,9 @@ const EmployeeDataForm = () => {
     dob: "",
     contact: "",
     email: "",
-    identificationType: "PAN", // Include identificationType in formData
-    identificationNumber: "", // Include identificationNumber in formData
-    status: "employee", // Assuming you have a status field in your form
+    identificationType: "PAN",
+    identificationNumber: "",
+    status: "employee",
   });
 
   const handleChange = (e) => {
@@ -36,46 +36,50 @@ const EmployeeDataForm = () => {
       ...formData,
       [name]: value,
     });
+
+    // Update identificationNumber and identificationType state
+    if (name === "identificationNumber") {
+      setIdentificationNumber(value);
+    } else if (name === "identificationType") {
+      setIdentificationType(value);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { photo, identificationType, identificationNumber, ...formDataWithoutPhoto } = formData;
-  
+      const { photo, ...formDataWithoutPhoto } = formData;
+
       const docRef = await addDoc(
         collection(fireDb, "EmployeeDataForm"),
         formDataWithoutPhoto
       );
-  
-      let photoUrl = ""; // Define photoUrl variable
-  
+
+      let photoUrl = "";
+
       if (photo) {
         const storageRef = ref(getStorage());
         const photoRef = ref(storageRef, `${docRef.id}/${photo.name}`);
         await uploadBytes(photoRef, photo);
-        
-        // Get the download URL of the uploaded photo
+
         photoUrl = await getDownloadURL(photoRef);
-  
-        // Update Firestore document with photo URL
+
         await updateDoc(doc(fireDb, "EmployeeDataForm", docRef.id), {
           photoUrl: photoUrl,
         });
-  
-        // Update the formData state with the photo URL
+
         setFormData((prevState) => ({
           ...prevState,
           photoUrl: photoUrl,
         }));
       }
-  
-      // Update Firestore document with remaining payment
+
+      // Update Firestore document with identificationType and identificationNumber
       await updateDoc(doc(fireDb, "EmployeeDataForm", docRef.id), {
-        identificationType: identificationType,
-        identificationNumber: identificationNumber,
+        identificationType: formData.identificationType,
+        identificationNumber: formData.identificationNumber,
       });
-  
+
       // Clear form data after submission
       setFormData({
         photo: null,
@@ -88,17 +92,16 @@ const EmployeeDataForm = () => {
         identificationNumber: "",
         status: "employee",
       });
-  
+
       // Show success message
       toast.success("Form data submitted successfully!");
-      navigate("/viewdata");
+      navigate("/viewEmployeData");
     } catch (error) {
       console.error("Error submitting form data:", error);
       // Show error message
       toast.error("Failed to submit form data. Please try again.");
     }
   };
-  
 
   const handleImageUpload = (e) => {
     setFormData({
@@ -106,12 +109,7 @@ const EmployeeDataForm = () => {
       photo: e.target.files[0],
     });
   };
-  const handleIdentificationNumberChange = (event) => {
-    setIdentificationNumber(event.target.value);
-  };
-  const handleIdentificationTypeChange = (event) => {
-    setIdentificationType(event.target.value);
-  };
+
   return (
     <>
       <div className="flex container bg-[rgb(181,181,181)] h-screen">
@@ -122,9 +120,7 @@ const EmployeeDataForm = () => {
               Employee Data
             </h1>
             <form onSubmit={handleSubmit}>
-              {/* Your provided form content */}
               <div className="space-y-12">
-                {/* Profile Section */}
                 <div className="border-b border-gray-900/10 pb-12">
                   <div>
                     <label
@@ -141,6 +137,7 @@ const EmployeeDataForm = () => {
                         id="image"
                         onChange={handleImageUpload}
                         className="hidden"
+                        required
                       />
                       <label
                         htmlFor="image"
@@ -159,7 +156,6 @@ const EmployeeDataForm = () => {
                     </div>
                   </div>
 
-                  {/* Username */}
                   <div className="sm:col-span-4">
                     <label
                       htmlFor="name"
@@ -176,13 +172,14 @@ const EmployeeDataForm = () => {
                           autoComplete="name"
                           className="block w-full border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                           placeholder="Full Name"
+                          required
                           value={formData.name}
                           onChange={handleChange}
                         />
                       </div>
                     </div>
                   </div>
-                  {/* DOB */}
+
                   <div className="sm:col-span-4">
                     <label
                       htmlFor="dob"
@@ -193,18 +190,20 @@ const EmployeeDataForm = () => {
                     <div className="mt-2">
                       <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                         <input
-                          type="date" // Set type as "date"
+                          type="date"
                           name="dob"
                           id="dob"
                           autoComplete="bday"
                           className="block w-full border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                           placeholder="DD-MM-YYYY"
+                          required
                           value={formData.dob}
                           onChange={handleChange}
                         />
                       </div>
                     </div>
                   </div>
+
                   <div className="sm:col-span-4">
                     <label
                       htmlFor="contact"
@@ -218,6 +217,7 @@ const EmployeeDataForm = () => {
                           type="text"
                           name="contact"
                           id="contact"
+                          required
                           autoComplete="tel"
                           className="block w-full border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                           placeholder="Contact Number"
@@ -241,6 +241,7 @@ const EmployeeDataForm = () => {
                           type="email"
                           name="email"
                           id="email"
+                          required
                           autoComplete="email"
                           className="block w-full border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                           placeholder="Email Address"
@@ -262,8 +263,8 @@ const EmployeeDataForm = () => {
                       <select
                         name="identificationType"
                         id="identificationType"
-                        value={identificationType}
-                        onChange={handleIdentificationTypeChange}
+                        value={formData.identificationType}
+                        onChange={handleChange}
                         className="bg-gray-50 bg-opacity-70 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 "
                       >
                         <option value="PAN">PAN</option>
@@ -272,20 +273,20 @@ const EmployeeDataForm = () => {
                     </div>
                     <div>
                       <label
-                        htmlFor={identificationType.toLowerCase() + "Number"}
+                        htmlFor="identificationNumber"
                         className="block mb-2 text-sm font-medium text-gray-600"
                       >
-                        {identificationType} Number
+                        Identification Number
                       </label>
                       <input
                         type="text"
-                        name={identificationType.toLowerCase() + "Number"}
-                        id={identificationType.toLowerCase() + "Number"}
-                        value={identificationNumber}
-                        onChange={handleIdentificationNumberChange}
+                        name="identificationNumber"
+                        id="identificationNumber"
+                        required
+                        value={formData.identificationNumber}
+                        onChange={handleChange}
                         className="bg-gray-50 bg-opacity-70 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder={`Enter your ${identificationType} Number`}
-                        // required
+                        placeholder={`Enter your ${formData.identificationType} Number`}
                       />
                     </div>
                   </div>

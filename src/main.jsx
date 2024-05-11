@@ -29,6 +29,7 @@ import {
   ViewInvoiceJobConsultancyData,
   CertificateDataForm,
   ViewInvoiceData,
+  ViewCertificatedata,
 } from "./Components/index.js";
 
 import {
@@ -63,6 +64,7 @@ const router = createBrowserRouter(
       <Route path="viewcertificatentern" element ={<ViewCertificateIntern/>}/>
       <Route path="viewInvoiceData" element ={<ViewInvoiceData/>}/>
       <Route path="viewEmployeData" element ={<ViewEmployeData/>}/>
+      <Route path="viewCertificatedata" element ={<ViewCertificatedata/>}/>
     </Route>
   )
 );
