@@ -5,6 +5,7 @@ import { fireDb } from "../Firebase/FirebaseConfig";
 
 const ViewEmployeData = () => {
   const [formData, setFormData] = useState([]);
+  const [statusFilter, setStatusFilter] = useState("All");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,23 +17,37 @@ const ViewEmployeData = () => {
         querySnapshot.forEach((doc) => {
           data.push({ id: doc.id, ...doc.data() });
         });
-        setFormData(data);
+        const filteredData = statusFilter === "All" ? data : data.filter(entry => entry.status === statusFilter);
+        setFormData(filteredData);
       } catch (error) {
         console.error("Error fetching form data:", error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [statusFilter]);
 
   return (
     <>
-      <div className="flex items-center justify-center bg-[rgb(181,181,181)] h-screen">
+      <div className="flex items-center justify-center bg-[rgb(181,181,181)] h-screen w-screen">
         <Navebar />
         <div className="m-auto container max-w-[1020px] bg-white rounded-xl git overflow-hidden px-5">
           <h1 className="text-center font-serif font-bold text-4xl">
             Employee Data
           </h1>
+
+          {/* Dropdown for filtering */}
+          <div className="flex justify-end mb-4">
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="px-4 py-2 rounded-md border-2 border-gray-300 focus:outline-none focus:border-blue-500"
+            >
+              <option value="All">All</option>
+              <option value="employee">Employee</option>
+              <option value="intern">Intern</option>
+            </select>
+          </div>
 
           {/* Table Section */}
           <div className="flex flex-col h-full">

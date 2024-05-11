@@ -5,6 +5,7 @@ import { fireDb } from "../Firebase/FirebaseConfig";
 
 const ViewData = () => {
   const [formData, setFormData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,6 +26,10 @@ const ViewData = () => {
     fetchData();
   }, []);
 
+  const filteredData = formData.filter((entry) =>
+    entry.username.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <>
       <div className="flex items-center justify-center bg-[rgb(181,181,181)] h-screen">
@@ -34,9 +39,18 @@ const ViewData = () => {
             Form Data
           </h1>
 
-          {/* Table Section */}
+          <div className="my-4">
+            <input
+              type="text"
+              placeholder="Search by name..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full px-4 py-2 rounded-md border-2 border-gray-300 focus:outline-none focus:border-blue-500 mb-6"
+            />
+          </div>
+
           <div className="flex flex-col h-full">
-            <div className="bg-white rounded-xl py-7 mt-8 shadow-md flex-grow overflow-x-auto">
+            <div className="bg-white rounded-xl py-7 -mt-10 shadow-md flex-grow overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
@@ -85,7 +99,7 @@ const ViewData = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-gray-200 divide-y divide-gray-200">
-                  {formData.map((entry, index) => (
+                  {filteredData.map((entry, index) => (
                     <tr key={index}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="h-10 w-10 overflow-hidden rounded-full">

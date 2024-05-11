@@ -24,12 +24,10 @@ const InvoiceForm = () => {
       return;
     }
 
-    // Upload file to Firebase Storage
     const storageRef = ref(getStorage(), "invoices/" + selectedFile.name);
     await uploadBytes(storageRef, selectedFile);
     const fileUrl = await getDownloadURL(storageRef);
 
-    // Add invoice data to Firestore
     const db = getFirestore();
     const docRef = await addDoc(collection(db, "invoices"), {
       name: name,
@@ -38,7 +36,6 @@ const InvoiceForm = () => {
       date: selectedDate,
     });
 
-    // Reset form fields
     setName("");
     setSelectedFile("");
     setSelectedOption("");
@@ -100,8 +97,7 @@ const InvoiceForm = () => {
                 className="border border-gray-300 rounded px-4 py-2 w-full focus:outline-none focus:border-blue-500"
               >
                 <option value="">Select Category</option>{" "}
-                {/* Initially empty option */}
-                <option value="">Internship</option>
+                <option value="Internship">Internship</option>
                 <option value="Digital Marketing Client">
                   Digital Marketing Client
                 </option>
