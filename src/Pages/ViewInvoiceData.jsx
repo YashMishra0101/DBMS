@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import Navebar from '../Components/Navebar';
+import React, { useState, useEffect } from "react";
+import Navebar from "../Components/Navebar";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 const ViewInvoiceData = () => {
   const [invoices, setInvoices] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchInvoices = async () => {
       const db = getFirestore();
       const querySnapshot = await getDocs(collection(db, "invoices"));
-      const invoicesData = querySnapshot.docs.map(doc => ({
+      const invoicesData = querySnapshot.docs.map((doc) => ({
         id: doc.id,
-        ...doc.data()
+        ...doc.data(),
       }));
       setInvoices(invoicesData);
     };
@@ -19,13 +20,31 @@ const ViewInvoiceData = () => {
     fetchInvoices();
   }, []);
 
+  const filteredInvoices = invoices.filter((invoice) =>
+    invoice.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div>
-      <div className='flex container bg-[rgb(181,181,181)] h-screen'>
+      <div className="flex container bg-[rgb(181,181,181)] h-screen">
         <Navebar />
-        <div className='m-auto justify-center container h-[600px] w-[1000px] bg-white rounded-xl git '>
-          <h1 className='text-center font-serif font-bold text-4xl mt-5'> Digital Marketing Invoice </h1>
-          <div className='flex justify-center items-center my-10 py-20 space-x-40'>
+        <div className="m-auto justify-center container h-[600px] w-[1000px] bg-white rounded-xl git px-4 ">
+          <h1 className="text-center font-serif font-bold text-4xl mt-5">
+            {" "}
+            Digital Marketing Invoice{" "}
+          </h1>
+
+          <div className="flex justify-center items-center my-5">
+            <input
+              type="text"
+              placeholder="Search by client name..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full px-4 py-2 rounded-md border-2 border-gray-300 focus:outline-none focus:border-blue-500"
+            />
+          </div>
+
+          <div className="flex justify-center items-center my-10 -mt-14 py-20 space-x-40">
             <table className="min-w-full">
               <thead>
                 <tr>
@@ -44,19 +63,32 @@ const ViewInvoiceData = () => {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {invoices.map((invoice) => (
+                {filteredInvoices.map((invoice) => (
                   <tr key={invoice.id}>
                     <td className="px-6 py-4 whitespace-no-wrap">
-                      <div className="text-sm leading-5 font-medium text-gray-900">{invoice.name}</div>
+                      <div className="text-sm leading-5 font-medium text-gray-900">
+                        {invoice.name}
+                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-no-wrap">
-                      <div className="text-sm leading-5 font-medium text-gray-900">{invoice.date}</div>
+                      <div className="text-sm leading-5 font-medium text-gray-900">
+                        {invoice.date}
+                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-no-wrap">
-                      <div className="text-sm leading-5 font-medium text-gray-900">{invoice.category}</div>
+                      <div className="text-sm leading-5 font-medium text-gray-900">
+                        {invoice.category}
+                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-no-wrap">
-                      <a href={invoice.fileUrl} target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:text-indigo-900">View File</a>
+                      <a
+                        href={invoice.fileUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-indigo-600 hover:text-indigo-900"
+                      >
+                        View File
+                      </a>
                     </td>
                   </tr>
                 ))}
@@ -67,6 +99,6 @@ const ViewInvoiceData = () => {
       </div>
     </div>
   );
-}
+};
 
 export default ViewInvoiceData;

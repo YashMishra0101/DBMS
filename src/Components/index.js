@@ -22,6 +22,8 @@ export {default as ViewInternData} from '../Pages/ViewInternData';
 export {default as ViewInvoiceDigitalMarketingData} from '../Pages/ViewInvoiceDigitalMarketingData';
 export {default as ViewInvoiceInterData} from '../Pages/ViewInvoiceInterData';
 export {default as ViewInvoiceJobConsultancyData} from '../Pages/ViewInvoiceJobConsultancyData';
-export {default as ViewInvoiceData} from '../Pages/ViewInvoiceData'
+export {default as ViewInvoiceData} from '../Pages/ViewInvoiceData';
+export {default as ViewCertificatedata} from '../Pages/ViewCertificatedata';
+
 
 

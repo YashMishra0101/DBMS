@@ -3,7 +3,7 @@ import Navebar from "../Components/Navebar";
 import { collection, getDocs } from "firebase/firestore";
 import { fireDb } from "../Firebase/FirebaseConfig";
 
-const ViewDigitalMarketingData = () => {
+const ViewCertificatedata = () => {
   const [formData, setFormData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -11,7 +11,7 @@ const ViewDigitalMarketingData = () => {
     const fetchData = async () => {
       try {
         const querySnapshot = await getDocs(
-          collection(fireDb, "DigitalMarketingFormData")
+          collection(fireDb, "CertificateDataForm")
         );
         const data = [];
         querySnapshot.forEach((doc) => {
@@ -27,7 +27,7 @@ const ViewDigitalMarketingData = () => {
   }, []);
 
   const filteredData = formData.filter((entry) =>
-    entry.businessname.toLowerCase().includes(searchTerm.toLowerCase())
+    entry.categoryofCertificate.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -36,13 +36,13 @@ const ViewDigitalMarketingData = () => {
         <Navebar />
         <div className="m-auto container max-w-[1020px] bg-white rounded-xl git overflow-hidden px-5">
           <h1 className="text-center font-serif font-bold text-4xl">
-            Digital Marketing Data
+            Certificate Data
           </h1>
 
           <div className="my-4">
             <input
               type="text"
-              placeholder="Search by Business Name..."
+              placeholder="Search by Category of Certificate..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full px-4 py-2 rounded-md border-2 border-gray-300 focus:outline-none focus:border-blue-500 mb-6"
@@ -58,49 +58,43 @@ const ViewDigitalMarketingData = () => {
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      Name of Client
+                      Photo
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      Business Name
+                      Name
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      Email
+                      DOB
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      Contact Number
+                      Document Type
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      Remarks
+                      Document Number
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      Start Date
+                      Category of Certificate
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      End Date
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      Remaining Payment
+                      Position
                     </th>
                   </tr>
                 </thead>
@@ -108,29 +102,39 @@ const ViewDigitalMarketingData = () => {
                   {filteredData.map((entry, index) => (
                     <tr key={index}>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {entry.clientName}
+                        <div className="h-10 w-10 overflow-hidden rounded-full">
+                          <a
+                            href={entry.photoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-indigo-600 hover:text-indigo-900"
+                          >
+                            <img
+                              src={entry.photoUrl}
+                              alt="Student"
+                              className="h-full w-full object-cover"
+                            />
+                          </a>
+                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {entry.businessname}
+                        {entry.username}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {entry.email}
+                        {entry.dob}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {entry.contact}
+                        {entry.selectedOption}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {entry.remarks}
+                        {entry.aadharNumber}
+                        {entry.PanNumber}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {entry.startDate}
+                        {entry.categoryofCertificate}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-  {entry.startDateOption === "choose-date" ? entry.endDate.split(' ')[0] : entry.startDateOption}
-</td>
-
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {entry.remainingPayment}
+                        {entry.position}
                       </td>
                     </tr>
                   ))}
@@ -144,4 +148,4 @@ const ViewDigitalMarketingData = () => {
   );
 };
 
-export default ViewDigitalMarketingData;
+export default ViewCertificatedata;

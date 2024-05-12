@@ -24,16 +24,26 @@ const DigitialMarketingForm = () => {
     paymentPaid: 0,
     startDate: "",
     endDate: "",
-    businessname:"",
+    businessname: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    if (name === "endDate" && value === "present") {
+      setFormData({
+        ...formData,
+        startDate: "", // Resetting startDate when "Present" is selected for endDate
+        [name]: value,
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
+  
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,15 +53,12 @@ const DigitialMarketingForm = () => {
         formData
       );
 
-      // Calculate remaining payment
       const remainingPayment = formData.totalPayments - formData.paymentPaid;
 
-      // Update Firestore document with remaining payment
       await updateDoc(doc(fireDb, "DigitalMarketingFormData", docRef.id), {
         remainingPayment: remainingPayment,
       });
 
-      // Clear form data after submission
       setFormData({
         clientName: "",
         contactNumber: "",
@@ -61,15 +68,14 @@ const DigitialMarketingForm = () => {
         paymentPaid: 0,
         startDate: "",
         endDate: "",
-        businessname:"",
+        businessname: "",
       });
 
-      // Show success message
       toast.success("Form data submitted successfully!");
       navigate("/viewdigitalmarketing");
     } catch (error) {
       console.error("Error submitting form data:", error);
-      // Show error message
+
       toast.error("Failed to submit form data. Please try again.");
     }
   };
@@ -89,11 +95,8 @@ const DigitialMarketingForm = () => {
               Digital Marketing Data
             </h1>
             <form onSubmit={handleSubmit}>
-              {/* Your provided form content */}
               <div className="space-y-12">
-                {/* Profile Section */}
                 <div className="border-b border-gray-900/10 pb-12">
-                  {/* Username */}
                   <div className="sm:col-span-4">
                     <label
                       htmlFor="username"
@@ -118,7 +121,6 @@ const DigitialMarketingForm = () => {
                     </div>
                   </div>
 
-                  {/* Business Name */}
                   <div className="sm:col-span-4">
                     <label
                       htmlFor="businessname"
@@ -143,7 +145,6 @@ const DigitialMarketingForm = () => {
                     </div>
                   </div>
 
-                  {/* number */}
                   <div className="sm:col-span-4">
                     <label
                       htmlFor="contact"
@@ -287,12 +288,11 @@ const DigitialMarketingForm = () => {
                       className="block w-full border-2 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 rounded-lg"
                       placeholder="Remaining Payment"
                       value={calculateRemainingPayment()}
-                      readOnly // Disable user input
+                      readOnly
                     />
                   </div>
                 </div>
 
-                {/* converted date */}
                 <div className="sm:col-span-4">
                   <label
                     htmlFor="doc"
@@ -303,7 +303,7 @@ const DigitialMarketingForm = () => {
                   <div className="mt-2">
                     <div className="rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                       <input
-                        type="date" // Set type as "date"
+                        type="date"
                         name="startDate"
                         id="tartDat"
                         autoComplete="b"
@@ -317,7 +317,6 @@ const DigitialMarketingForm = () => {
                   </div>
                 </div>
 
-                {/* End date */}
                 <div className="sm:col-span-4">
                   <label
                     htmlFor="doc"
